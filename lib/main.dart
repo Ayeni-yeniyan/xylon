@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -13,7 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.teal,
           centerTitle: true,
           title: Text(
             'XYLON!',
@@ -29,50 +27,30 @@ class MyApp extends StatelessWidget {
 
 class MusicMoves extends StatelessWidget {
   const MusicMoves({super.key});
-  void playSound(int note) {
-    final player = AudioPlayer();
-    player.play(AssetSource('sounds/note$note.wav'));
+
+  Expanded indBar({required Color barColor, required int note}) {
+    return Expanded(
+      child: TextButton(
+          style: TextButton.styleFrom(padding: EdgeInsets.all(0)),
+          onPressed: () {
+            final player = AudioPlayer();
+            player.play(AssetSource('sounds/note$note.wav'));
+          },
+          child: Container(color: barColor)),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Expanded(
-          child: TextButton(
-              onPressed: () => playSound(1),
-              child: Container(color: Colors.red)),
-        ),
-        Expanded(
-          child: TextButton(
-              onPressed: () => playSound(2),
-              child: Container(color: Colors.orange)),
-        ),
-        Expanded(
-          child: TextButton(
-              onPressed: () => playSound(3),
-              child: Container(color: Colors.amber)),
-        ),
-        Expanded(
-          child: TextButton(
-              onPressed: () => playSound(4),
-              child: Container(color: Colors.green)),
-        ),
-        Expanded(
-          child: TextButton(
-              onPressed: () => playSound(5),
-              child: Container(color: Colors.blueGrey)),
-        ),
-        Expanded(
-          child: TextButton(
-              onPressed: () => playSound(6),
-              child: Container(color: Colors.blue)),
-        ),
-        Expanded(
-          child: TextButton(
-              onPressed: () => playSound(7),
-              child: Container(color: Colors.purple)),
-        ),
+        indBar(barColor: Colors.red, note: 1),
+        indBar(barColor: Colors.orange, note: 2),
+        indBar(barColor: Colors.amber, note: 3),
+        indBar(barColor: Colors.green, note: 4),
+        indBar(barColor: Colors.blueGrey, note: 5),
+        indBar(barColor: Colors.blue, note: 6),
+        indBar(barColor: Colors.purple, note: 7),
       ],
     );
   }
